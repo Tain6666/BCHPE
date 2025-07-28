@@ -9,7 +9,7 @@
   <h2>กำลังเตรียมข้อมูล...</h2>
   <script>
     const liffId = "2007830696-GZjVmE95"; // เปลี่ยนเป็น LIFF ID ของคุณ
-    const githubPageUrl = "https://tain6666.github.io/BCHPE/index.html"; // เปลี่ยนเป็น URL GitHub Pages ของคุณ
+    const gasUrl = "https://script.google.com/macros/s/AKfycbyFqXz8m5Haps0q6KBU0BqbFLCApl4g_kR-DQ0e4Z_-91FWkrS3WFIcbyP7SC2B-CIFTQ/exec"; // URL Web App ตัวเดียวกัน
 
     async function main() {
       try {
@@ -19,16 +19,15 @@
           return;
         }
         if (!liff.isInClient()) {
-          alert("กรุณาเปิดลิงก์นี้ผ่านแอป LINE เท่านั้น");
+          alert("กรุณาเปิดผ่านแอป LINE เท่านั้น");
           return;
         }
 
         const profile = await liff.getProfile();
         const uid = profile.userId;
 
-        // Redirect ไป GitHub Pages พร้อมส่ง uid ผ่าน query string
-        const targetUrl = `${githubPageUrl}?uid=${encodeURIComponent(uid)}`;
-        window.location.replace(targetUrl);
+        // Redirect ไปหน้า GAS Web App พร้อม uid query param
+        window.location.href = gasUrl + "?uid=" + encodeURIComponent(uid);
       } catch (error) {
         alert("เกิดข้อผิดพลาด: " + error.message);
         console.error(error);
