@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+  <h2>กำลังเตรียมข้อมูล...</h2>
+  <script>
+    const liffId = "2007874806-oP1BJv6l"; // เปลี่ยนเป็น LIFF ID ของคุณ
+    const gasUrl = "https://bch1949.github.io/bch/?apps=https://script.google.com/macros/s/AKfycbwLbTYTMRBr6-LuPqX7nq2GRq1LK9dKQ6j-BbQ8ckYELViMiuCeviX-4c3Cm-U0K1Sr/exec"; // URL Web App ตัวเดียวกัน
+
+    async function main() {
+      try {
+        await liff.init({ liffId });
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+        if (!liff.isInClient()) {
+          alert("กรุณาเปิดผ่านแอป LINE เท่านั้น");
+          return;
+        }
+
+        const profile = await liff.getProfile();
+        const uid = profile.userId;
+
+        // Redirect ไปหน้า GAS Web App พร้อม uid query param
+        window.location.href = gasUrl + "?uid=" + encodeURIComponent(uid);
+      } catch (error) {
+        alert("เกิดข้อผิดพลาด: " + error.message);
+        console.error(error);
+      }
+    }
+
+    main();
+  </script>
+</body>
+</html>
